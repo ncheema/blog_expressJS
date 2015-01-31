@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //decode JSON
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+
 //-------------------
 //middleware to use for all coming requests
 router.use(function(req,res,next){
