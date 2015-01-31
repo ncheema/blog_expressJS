@@ -1,7 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var app = express(); 
-var router = express.Router();
+
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://localhost/blog');
 // connect to our database
@@ -14,17 +14,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //decode JSON
 app.use(bodyParser.json());
 
-
+var router = express.Router();
 //-------------------
 //middleware to use for all coming requests
-router.use(function(req,res,next){
+app.use(function(req,res,next){
 	next();//go to next route
-})
-router.get('/',function(req, res) {
+});
+
+app.get('/',function(req, res) {
 	res.json({mess: "hi welcome to first assignment of CSE-112"})
-})
+});
+
 //Post route
-router.route('/posts')
+app.route('/posts')
 			.post(function(req, res){
 				var post = new Post();
 				post.author = req.body.author;
@@ -48,7 +50,7 @@ router.route('/posts')
 			})
 
 //route for single post request
-router.route('/posts/:id')
+app.route('/posts/:id')
 			.get(function(req, res){
 				Post.findById(req.params.id, function(err,post) {
 					if (err)
@@ -86,7 +88,7 @@ router.route('/posts/:id')
 			
 	
 //Route for comments
-router.route('/posts/:id/comments')
+app.route('/posts/:id/comments')
 
 	   //get
 	   	     .get(function(req, res) {
@@ -119,7 +121,7 @@ router.route('/posts/:id/comments')
     
 	     })	
 //route for single comments
-router.route('/posts/:id/comments/:cid')
+app.route('/posts/:id/comments/:cid')
 		.get(function(req, res){
 			Post.findById(req.params.cid, function(err,post) {
 				if (err)
@@ -157,8 +159,8 @@ router.route('/posts/:id/comments/:cid')
 //register routes
 app.use('/api', router)	//register routes
 
-app.listen(8080);
-console.log("port# " + port)
+app.listen(8000);
+console.log("port# ")
 
 
 
