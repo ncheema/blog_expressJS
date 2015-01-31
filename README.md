@@ -1,6 +1,3 @@
-# blog_expressJS
-# Serverside-MEAN - Krishna Kolli
-
 Simple Express blog applicaiton 
 Author: Navjot Cheema
 Company: BlueJay - Server team 
